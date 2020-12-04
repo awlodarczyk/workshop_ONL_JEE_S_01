@@ -6,33 +6,43 @@ import pl.coderslab.repository.TaskRepository;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class TaskService {
 
     private TaskRepository repository;
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd");
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public TaskService(TaskRepository repository) {
         this.repository = repository;
     }
 
-    public boolean createNewTask(String desc, String date, boolean important) throws ParseException{
+
+    public boolean createNewTask(String desc, String date, boolean important) throws RuntimeException{
         try{
-            simpleDateFormat.parse(date);
+           Date date1 = simpleDateFormat.parse(date);
+           if(date1.before(new Date())){
+               throw new RuntimeException("date is in the past");
+           }
             Task task = repository.create(desc,date,important);
             return task!=null;
         } catch (ParseException e) {
-            throw e;
+            throw new RuntimeException("cannot parse date");
         }
     }
-    public boolean updateTask(int index, String desc, String date, boolean important) throws ParseException{
+
+    public boolean updateTask(int index, String desc, String date, boolean important) throws RuntimeException{
         try{
+            Date date1 = simpleDateFormat.parse(date);
+            if(date1.before(new Date())){
+                throw new RuntimeException("date is in the past");
+            }
             simpleDateFormat.parse(date);
             Task task = repository.update(index,desc,date,important);
             return task!=null;
         } catch (ParseException e) {
-            throw e;
+            throw new RuntimeException("cannot parse date");
         }
     }
 

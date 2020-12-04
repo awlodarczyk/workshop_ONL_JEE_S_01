@@ -36,9 +36,8 @@ public class TaskController {
                     System.out.println(ConsoleColors.RED+"Ooops :(");
                     System.out.println(" ================ ");
                 }
-            } catch (ParseException e) {
-                System.out.println(ConsoleColors.RED+"Date has invalid format");
-                System.out.println(" ================ ");
+            } catch (RuntimeException e) {
+                handleException(e);
             }
         }else{
             System.out.println(ConsoleColors.RED+"Bad data input");
@@ -59,9 +58,8 @@ public class TaskController {
                     System.out.println(ConsoleColors.RED+"Ooops :(");
                     System.out.println(" ================ ");
                 }
-            } catch (ParseException e) {
-                System.out.println(ConsoleColors.RED+"Date has invalid format");
-                System.out.println(" ================ ");
+            } catch (RuntimeException e) {
+               handleException(e);
             }
         }else{
             System.out.println(ConsoleColors.RED+"Bad data input");
@@ -96,5 +94,18 @@ public class TaskController {
 
     public void save() {
         service.save();
+    }
+
+    private void handleException(RuntimeException e){
+        if(e.getMessage().equals("cannot parse date")) {
+            System.out.println(ConsoleColors.RED + "Date has invalid format");
+            System.out.println(" ================ ");
+        }else if(e.getMessage().equals("date is in the past")){
+            System.out.println(ConsoleColors.RED + "You tried to put date from past");
+            System.out.println(" ================ ");
+        }else{
+            System.out.println(ConsoleColors.RED + e.getMessage());
+            System.out.println(" ================ ");
+        }
     }
 }

@@ -32,6 +32,7 @@ public class Task {
     public String toCsv(){
         return String.format("%s, %s, %s",this.description,this.date,this.important?"true":"false");
     }
+    //builder
     public static Task build(String string){
         String[] parts = string.split(",");
         if(parts.length==3) {

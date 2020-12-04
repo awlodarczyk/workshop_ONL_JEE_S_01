@@ -10,8 +10,10 @@ import java.util.Scanner;
 public class App {
 
     private static TaskController controller;
+
     public static void main(String[] args) {
         controller = new TaskController(new TaskService(new TaskRepository("tasks.csv")));
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.println(ConsoleColors.RESET+"### Hello in Task Manager app ###");
@@ -35,7 +37,7 @@ public class App {
                 controller.save();
                 break;
             }else {
-                System.out.println("invalid input");
+                System.out.println(ConsoleColors.RED+"invalid input");
             }
         }
     }

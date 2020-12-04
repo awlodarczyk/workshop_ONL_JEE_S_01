@@ -9,6 +9,7 @@ import java.util.List;
 public class TaskRepository {
     private String filename;
     List<Task> list;
+
     public TaskRepository(String filename) {
         this.filename = filename;
         this.list = new ArrayList<Task>();
@@ -26,13 +27,13 @@ public class TaskRepository {
     public List<Task> findAll(){
         return this.list;
     }
+
     public Task findById(int index){
         if(index<list.size()) {
             return list.get(index);
         }
         return null;
     }
-    //READ
 
     //CREATE
     public Task create(String desc, String date, boolean important){
@@ -59,7 +60,6 @@ public class TaskRepository {
            return list.remove(task);
         }
         return false;
-
     }
 
     public void save() {
