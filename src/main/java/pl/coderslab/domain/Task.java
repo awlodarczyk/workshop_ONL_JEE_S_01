@@ -30,7 +30,7 @@ public class Task {
     }
 
     public String toCsv(){
-        return String.format("%s,%s,%s",this.description,this.date,this.important?"true":"false");
+        return String.format("%s, %s, %s",this.description,this.date,this.important?"true":"false");
     }
     public static Task build(String string){
         String[] parts = string.split(",");
